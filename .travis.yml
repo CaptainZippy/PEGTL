@@ -1,8 +1,16 @@
 language: cpp
-compiler:
-#  - gcc  Disable GCC until Travis updates to at least version 4.8.2.
-  - clang
-os:
-  - linux
-  - osx
-script: make
+env:
+  matrix:
+  - COMPILER=g++-4.8
+  - COMPILER=g++-4.9
+  - COMPILER=g++-5
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - g++-4.9
+    - g++-5
+script:
+  make CXX=$COMPILER -j2
